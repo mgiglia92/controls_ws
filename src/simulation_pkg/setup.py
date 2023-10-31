@@ -8,7 +8,7 @@ setup(
     name=package_name,
     version='0.0.0',
     packages=find_packages(exclude=['test']),
-    package_dir={"": ""},
+    package_dir={".": "."},
     package_data={"": ["*.urdf"]},
     data_files=[
         ('share/ament_index/resource_index/packages',
