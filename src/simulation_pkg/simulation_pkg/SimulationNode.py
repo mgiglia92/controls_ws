@@ -63,7 +63,7 @@ def main():
     cubeStartOrientation = p.getQuaternionFromEuler([0,0,0])
     boxId = p.loadURDF(os.path.join(os.path.dirname(__file__), "myblock.urdf"),cubeStartPos, cubeStartOrientation)
     if not rclpy.ok(): rclpy.init()
-    node = FrictionlessMass1D('mass')
+    node = FrictionlessMass2D('mass')
     pos0=[0,0,0]
     pos1=pos0
     dt=0.005
@@ -79,7 +79,7 @@ def main():
             if(((cur - prev)/float(1e9)) >= dt):
                 # p.stepSimulation()
                 pos1, rot = p.getBasePositionAndOrientation(boxId)
-                p.applyExternalForce(boxId, -1, [node.input.linear.x, node.input.linear.y, node.input.linear.z], [0,0,0], p.WORLD_FRAME)
+                p.applyExternalForce(boxId, -1, [node.input.linear.x, node.input.linear.y, node.input.linear.z], [0,0,0], p.LINK_FRAME)
                 p.applyExternalTorque(boxId, -1, [node.input.angular.x, node.input.angular.y, node.input.angular.z], p.LINK_FRAME)
                 # pos0 = pos1
                 node.publish_state(pos1)
